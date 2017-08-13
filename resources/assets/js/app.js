@@ -16,7 +16,7 @@ window.moment = extendMoment(Moment);
 Vue.component('plans-modal', require('./components/Modal.vue'));
 Vue.component('plans-nav', require('./components/Nav.vue'));
 Vue.component('nav-item', require('./components/NavItem.vue'));
-Vue.component('media-textarea', require('./components/TextArea.vue'));
+Vue.component('media-textarea', require('./components/Textarea.vue'));
 Vue.component('flash-message', require('./components/FlashMessage.vue'));
 
 const nav = new Vue({
