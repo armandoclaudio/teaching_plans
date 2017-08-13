@@ -7,13 +7,14 @@
 
         <div class="columns">
             <div class="column"><h1 class="title is-5">Caguas Learning Academy</h1></div>
-            <div class="column"><h1 class="title is-5 has-text-right">{{ Auth::user()->class }} class</h1></div>
+            <div class="column is-narrow"><h1 class="title is-5">{{ Auth::user()->class }} class</h1></div>
         </div>
 
         <div class="columns">
             <div class="column">Teacher: {{ Auth::user()->name }}</div>
-            <div class="column is-2 has-text-centered">Grade: {{ $plan->grade }}</div>
-            <div class="column has-text-right">{{ $plan->formatted_date_from }} - {{ $plan->formatted_date_to }}</div>
+            <div class="column is-narrow">Grade: {{ $plan->grade }}</div>
+            <div class="column has-text-right is-hidden-mobile">{{ $plan->formatted_date_from }} - {{ $plan->formatted_date_to }}</div>
+            <div class="column is-hidden-tablet">{{ $plan->formatted_date_from }} - {{ $plan->formatted_date_to }}</div>
         </div>
 
         <hr>

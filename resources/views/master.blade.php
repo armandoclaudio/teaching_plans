@@ -13,6 +13,10 @@
         padding-left:20px;
     }
 
+    .align-bottom {
+        vertical-align: bottom;
+    }
+
     @media print {
        .navbar {
         display:none;

@@ -4,12 +4,12 @@
 
 <section class="section">
     <div class="container">
-        
+
         <h1 class="title">
-            <div class="columns">
+            <div class="columns is-mobile">
                 <div class="column">Standards</div>
-                <div class="column has-text-right title is-5" style="margin-top:auto">
-                    <a href="{{ route('standards.create') }}">Create a new standard</a>
+                <div class="column is-narrow">
+                    <a class="button is-primary is-small align-bottom" href="{{ route('standards.create') }}">Create a standard</a>
                 </div>
             </div>
         </h1>

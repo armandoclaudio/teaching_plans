@@ -6,10 +6,10 @@
     <div class="container">
 
         <h1 class="title">
-            <div class="columns">
+            <div class="columns is-mobile">
                 <div class="column">Plans</div>
-                <div class="column has-text-right title is-5" style="margin-top:auto">
-                    <a href="{{ route('plans.create') }}">Create a new plan</a>
+                <div class="column is-narrow">
+                    <a class="button is-primary is-small align-bottom" href="{{ route('plans.create') }}">Create a new plan</a>
                 </div>
             </div>
         </h1>
@@ -71,7 +71,7 @@
 
         </div>
     </div>
-    
+
     {{ $plans->appends(['s' => $params->s, 'grade' => $params->grade])->links() }}
 
 </section>
