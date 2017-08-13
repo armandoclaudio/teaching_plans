@@ -52,6 +52,13 @@
         </div>
     @yield('content')
 
+    <div id="global-vue">
+        @if(Session::has('message'))
+            <flash-message>{{ Session::get('message') }}</flash-message>
+        @endif
+    </div>
+
     <script src="/js/app.js"></script>
+
 </body>
 </html>
