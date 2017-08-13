@@ -9,6 +9,7 @@ window.onload = function() {
             date_from: '',
             date_to : '',
             daily_plan: [],
+            standards_filter: '',
             available_standards: [],
             standards: [],
             selecting_standards: [],
@@ -37,6 +38,17 @@ window.onload = function() {
             this.startAutomaticSaves();
         },
 
+        computed: {
+            filtered_standards() {
+                var regex = new RegExp(this.standards_filter, 'gi');
+                return this.available_standards.filter((standard) => {
+                    return standard.description.match(regex) || standard.expectations.filter((expectation) => {
+                        return expectation.match(regex);
+                    }).length > 0;
+                });
+            }
+        },
+
         watch: {
             date_from() {
                 this.calculateDates();
@@ -44,11 +56,16 @@ window.onload = function() {
 
             date_to() {
                 this.calculateDates();
+            },
+
+            is_standard_modal_open() {
+                if(! this.is_standard_modal_open)
+                    this.standards_filter = '';
             }
         },
 
         methods: {
-            
+
             getPlanId() {
                 let url = this.$el.action.split('/');
                 if(!isNaN(url[url.length - 1])) {
@@ -115,6 +132,13 @@ window.onload = function() {
                     plan: '',
                     time: ''
                 };
+            },
+
+            filteredExpectations(standard) {
+                var regex = new RegExp(this.standards_filter, 'gi');
+                return standard.expectations.filter((expectation) => {
+                    return expectation.match(regex);
+                });
             },
 
             chooseStandards() {
@@ -229,7 +253,7 @@ window.onload = function() {
                 axios.post(this.$el.action, this.$data)
                     .then(response => {
                         if(response.data.success) {
-                            
+
                             if(response.data.id) {
                                 let id = response.data.id;
                                 window.history.replaceState({}, '', `/plans/${id}/edit`);

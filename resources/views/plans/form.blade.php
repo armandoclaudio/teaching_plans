@@ -67,9 +67,9 @@
 
 <h1 class="title is-5">Essential Questions</h1>
 
-<media-textarea 
-    v-for="(essential_question, index) in essential_questions" 
-    placeholder="Add an essential question..." 
+<media-textarea
+    v-for="(essential_question, index) in essential_questions"
+    placeholder="Add an essential question..."
     @close="essential_questions.splice(index, 1)"
     :key="getRandomInteger()"
     v-bind:value="essential_question"
@@ -80,21 +80,21 @@
 
 <h1 class="title is-5">Objectives</h1>
 
-<media-textarea 
-    v-for="(objective, index) in objectives" 
-    placeholder="Add an objective..." 
+<media-textarea
+    v-for="(objective, index) in objectives"
+    placeholder="Add an objective..."
     @close="objectives.splice(index, 1)"
     :key="getRandomInteger()"
     v-bind:value="objective"
     v-on:input="objectives[index] = arguments[0]"></media-textarea>
-    
+
 <button @click.prevent="objectives.push('')">Add</button>
 <hr>
 <h1 class="title is-5">Evaluations</h1>
 
-<media-textarea 
-    v-for="(evaluation, index) in evaluations" 
-    placeholder="Add an evaluation..." 
+<media-textarea
+    v-for="(evaluation, index) in evaluations"
+    placeholder="Add an evaluation..."
     @close="evaluations.splice(index, 1)"
     :key="getRandomInteger()"
     v-bind:value="evaluation"
@@ -104,9 +104,9 @@
 <hr>
 <h1 class="title is-5">Activities</h1>
 
-<media-textarea 
-    v-for="(activity, index) in activities" 
-    placeholder="Add an activity..." 
+<media-textarea
+    v-for="(activity, index) in activities"
+    placeholder="Add an activity..."
     @close="activities.splice(index, 1)"
     :key="getRandomInteger()"
     v-bind:value="activity"
@@ -166,14 +166,26 @@
     @save="saveStandards"
     @close="is_standard_modal_open = false">
 
-    <div v-for="standard in available_standards">
+    <div class="field">
+        <div class="control">
+            <input
+                class="input"
+                type="text"
+                placeholder="Search..."
+                v-model="standards_filter">
+        </div>
+    </div>
+
+    <hr>
+
+    <div v-for="standard in filtered_standards">
         <label class="checkbox">
             <p>
                 <input type="checkbox" :value="standard.description" v-model="selecting_standards">
                 @{{ standard.description }}
             </p>
 
-            <p v-for="expectation in standard.expectations" class="indented">
+            <p v-for="expectation in filteredExpectations(standard)" class="indented">
                 <label class="checkbox">
                     <input type="checkbox" :value="expectation" v-model="selecting_expectations">
                     @{{ expectation }}
