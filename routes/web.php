@@ -27,6 +27,9 @@ Route::post('/standards/create', 'StandardsController@store')->name('standards.s
 Route::post('/standards/{id}', 'StandardsController@update')->name('standards.update');
 Route::get('/standards/{id}/get', 'StandardsController@get')->name('standards.get');
 
+Route::get('/profile', 'ProfileController@edit')->name('profile.edit');
+Route::patch('/profile', 'ProfileController@update')->name('profile.update');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
