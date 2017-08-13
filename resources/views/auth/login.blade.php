@@ -5,10 +5,12 @@
     <div class="container">
 
         <div class="content">
-            <div class="columns is-mobile">
-                <div class="column is-half is-offset-one-quarter">
+            <div class="columns is-desktop">
+                <div class="column is-8 is-offset-2">
                     <h1 class="title">Login</h1>
-        <hr>
+
+                    <hr>
+
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
