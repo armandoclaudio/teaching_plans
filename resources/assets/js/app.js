@@ -14,15 +14,19 @@ import { extendMoment } from 'moment-range';
 window.moment = extendMoment(Moment);
 
 Vue.component('plans-modal', require('./components/Modal.vue'));
-Vue.component('plans-nav', require('./components/Nav.vue'));
-Vue.component('nav-item', require('./components/NavItem.vue'));
 Vue.component('media-textarea', require('./components/Textarea.vue'));
 Vue.component('flash-message', require('./components/FlashMessage.vue'));
 
-const nav = new Vue({
-    el: '#nav'
-});
-
 const app = new Vue({
-    el: '#global-vue'
+    el: '#app',
+
+    data: {
+        is_burguer_open: false
+    },
+
+    methods: {
+        toggleBurguer() {
+            this.is_burguer_open = !this.is_burguer_open
+        }
+    }
 });

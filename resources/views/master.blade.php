@@ -14,7 +14,7 @@
     }
 
     @media print {
-       #nav {
+       .navbar {
         display:none;
        }
     }
@@ -27,37 +27,14 @@
     </style>
 </head>
 <body>
-    <div id="nav">
-        <plans-nav app_name="PLANS" home_path="/">
-            <img slot="logo" src="">
-            @if(Auth::check())
-                <nav-item link="{{ route('standards.index') }}">STANDARDS</nav-item>
-                @if(Route::currentRouteName() == 'plans.show')
-                    <nav-item link="javascript:window.print();">PRINT</nav-item>
-                @endif
-                <nav-item link="{{ route('profile.edit') }}">PROFILE</nav-item>
-                <nav-item link="javascript:document.getElementById('logout-form').submit();">
-                    <p>
-                        LOGOUT
-                    </p>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                </nav-item>
-            @else
-                <nav-item link="/register">REGISTER</nav-item>
-                <nav-item link="/login">LOGIN</nav-item>
-            @endif
-        </plans-nav>
-    </div>
-    @yield('content')
-
-    <div id="global-vue">
+    <div id="app">
+        @include('nav')
         @if(Session::has('message'))
             <flash-message>{{ Session::get('message') }}</flash-message>
         @endif
     </div>
+
+    @yield('content')
 
     <script src="/js/app.js"></script>
 
