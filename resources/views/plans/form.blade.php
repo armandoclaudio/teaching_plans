@@ -51,7 +51,7 @@
         @{{ standard }}
     </li>
 </ul>
-<button @click.prevent="chooseStandards">Add</button>
+<button class="button is-small" @click.prevent="chooseStandards">Add</button>
 <hr>
 
 <div v-show="expectations.length > 0">
@@ -67,52 +67,60 @@
 
 <h1 class="title is-5">Essential Questions</h1>
 
-<media-textarea
-    v-for="(essential_question, index) in essential_questions"
-    placeholder="Add an essential question..."
-    @close="essential_questions.splice(index, 1)"
-    :key="getRandomInteger()"
-    v-bind:value="essential_question"
-    v-on:input="essential_questions[index] = arguments[0]"></media-textarea>
+<p>
+    <media-textarea
+        v-for="(essential_question, index) in essential_questions"
+        placeholder="Add an essential question..."
+        @close="essential_questions.splice(index, 1)"
+        :key="getRandomInteger()"
+        v-bind:value="essential_question"
+        v-on:input="essential_questions[index] = arguments[0]"></media-textarea>
+</p>
 
-<button @click.prevent="essential_questions.push('')">Add</button></b>
+<button class="button is-small" @click.prevent="essential_questions.push('')">Add</button></b>
 <hr>
 
 <h1 class="title is-5">Objectives</h1>
 
-<media-textarea
-    v-for="(objective, index) in objectives"
-    placeholder="Add an objective..."
-    @close="objectives.splice(index, 1)"
-    :key="getRandomInteger()"
-    v-bind:value="objective"
-    v-on:input="objectives[index] = arguments[0]"></media-textarea>
+<p>
+    <media-textarea
+        v-for="(objective, index) in objectives"
+        placeholder="Add an objective..."
+        @close="objectives.splice(index, 1)"
+        :key="getRandomInteger()"
+        v-bind:value="objective"
+        v-on:input="objectives[index] = arguments[0]"></media-textarea>
+</p>
 
-<button @click.prevent="objectives.push('')">Add</button>
+<button class="button is-small" @click.prevent="objectives.push('')">Add</button>
 <hr>
 <h1 class="title is-5">Evaluations</h1>
 
-<media-textarea
-    v-for="(evaluation, index) in evaluations"
-    placeholder="Add an evaluation..."
-    @close="evaluations.splice(index, 1)"
-    :key="getRandomInteger()"
-    v-bind:value="evaluation"
-    v-on:input="evaluations[index] = arguments[0]"></media-textarea>
+<p>
+    <media-textarea
+        v-for="(evaluation, index) in evaluations"
+        placeholder="Add an evaluation..."
+        @close="evaluations.splice(index, 1)"
+        :key="getRandomInteger()"
+        v-bind:value="evaluation"
+        v-on:input="evaluations[index] = arguments[0]"></media-textarea>
+</p>
 
-<button @click.prevent="evaluations.push('')">Add</button>
+<button class="button is-small" @click.prevent="evaluations.push('')">Add</button>
 <hr>
 <h1 class="title is-5">Activities</h1>
 
-<media-textarea
-    v-for="(activity, index) in activities"
-    placeholder="Add an activity..."
-    @close="activities.splice(index, 1)"
-    :key="getRandomInteger()"
-    v-bind:value="activity"
-    v-on:input="activities[index] = arguments[0]"></media-textarea>
+<p>
+    <media-textarea
+        v-for="(activity, index) in activities"
+        placeholder="Add an activity..."
+        @close="activities.splice(index, 1)"
+        :key="getRandomInteger()"
+        v-bind:value="activity"
+        v-on:input="activities[index] = arguments[0]"></media-textarea>
+</p>
 
-<button @click.prevent="activities.push('')">Add</button>
+<button class="button is-small" @click.prevent="activities.push('')">Add</button>
 <hr>
 <h1 class="title is-5">Daily plan</h1>
 <hr>
@@ -145,7 +153,7 @@
             </tr>
         </tbody>
     </table>
-    <button @click.prevent="addPlan(day)">Add</button>
+    <button class="button is-small" @click.prevent="addPlan(day)">Add</button>
     <hr>
 </div>
 
