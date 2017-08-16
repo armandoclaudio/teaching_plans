@@ -18,8 +18,8 @@
     }
 
     @media print {
-       .navbar {
-        display:none;
+       .navbar, .no-print {
+            display:none;
        }
     }
 

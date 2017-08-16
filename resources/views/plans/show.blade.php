@@ -19,7 +19,10 @@
 
         <hr>
 
-        <h1 class="title is-4">{{ $plan->title }}</h1>
+        <h1 class="title is-4">
+            {{ $plan->title }}
+            <a class="button is-primary is-small is-pulled-right no-print" href="{{ route('plans.edit', $plan->id) }}">Edit</a>
+        </h1>
 
         <hr>
 
