@@ -47,12 +47,12 @@ class PlansController extends Controller
             'grade' => $request->grade,
             'date_from' => Carbon::parse($request->date_from),
             'date_to' => Carbon::parse($request->date_to),
-            'standards' => json_encode($request->standards),
-            'expectations' => json_encode($request->expectations),
-            'essential_questions' => json_encode($request->essential_questions),
-            'objectives' => json_encode($request->objectives),
-            'activities' => json_encode($request->activities),
-            'evaluations' => json_encode($request->evaluations),
+            'standards' => $this->prepareArray($request->standards),
+            'expectations' => $this->prepareArray($request->expectations),
+            'essential_questions' => $this->prepareArray($request->essential_questions),
+            'objectives' => $this->prepareArray($request->objectives),
+            'activities' => $this->prepareArray($request->activities),
+            'evaluations' => $this->prepareArray($request->evaluations),
             'daily_plan' => json_encode($daily_plan),
             'observations' => $request->observations,
         ]));
@@ -61,6 +61,11 @@ class PlansController extends Controller
             'success' => true,
             'id' => Auth::user()->plans()->latest()->first()->id
         ];
+    }
+
+    public function prepareArray($array)
+    {
+        return json_encode(array_values(array_filter($array)));
     }
 
     public function removeEmptyDailyPlans($daily_plan)
@@ -101,12 +106,12 @@ class PlansController extends Controller
             'grade' => $request->grade,
             'date_from' => Carbon::parse($request->date_from),
             'date_to' => Carbon::parse($request->date_to),
-            'standards' => json_encode($request->standards),
-            'expectations' => json_encode($request->expectations),
-            'essential_questions' => json_encode($request->essential_questions),
-            'objectives' => json_encode($request->objectives),
-            'activities' => json_encode($request->activities),
-            'evaluations' => json_encode($request->evaluations),
+            'standards' => $this->prepareArray($request->standards),
+            'expectations' => $this->prepareArray($request->expectations),
+            'essential_questions' => $this->prepareArray($request->essential_questions),
+            'objectives' => $this->prepareArray($request->objectives),
+            'activities' => $this->prepareArray($request->activities),
+            'evaluations' => $this->prepareArray($request->evaluations),
             'daily_plan' => json_encode($daily_plan),
             'observations' => $request->observations,
         ]);
