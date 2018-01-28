@@ -130,12 +130,20 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Plan</th>
+                <th colspan="2">Plan</th>
                 <th width="10"><p class="has-text-centered">Time</p></th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="(plan, index) in day.plans">
+                <td width="10">
+                    <a href="#" class="has-text-grey-light" @click.prevent="moveUp(day_index, index)" v-if="index > 0" title="Move up">
+                        @svg('icon-arrow-up')
+                    </a>
+                    <a href="#" class="has-text-grey-light" @click.prevent="moveDown(day_index, index)" v-if="index < day.plans.length - 1" title="Move down">
+                        @svg('icon-arrow-down')
+                    </a>
+                </td>
                 <td>
                     <textarea class="textarea" v-model="day.plans[index].plan"></textarea>
                     <a v-show="day.plans[index].plan != ''" @click="moveToPreviousDay(day_index, index)">Move to previous day</a>

@@ -169,6 +169,20 @@ window.onload = function() {
                 day.plans.push(this.getEmptyPlanObject());
             },
 
+            moveUp(day_index, plan_index) {
+                if (plan_index <= 0)
+                    return;
+
+                this.daily_plan[day_index].plans.splice(plan_index - 1, 0, this.daily_plan[day_index].plans.splice(plan_index, 1)[0]);
+            },
+
+            moveDown(day_index, plan_index) {
+                if (plan_index >= this.daily_plan[day_index].plans.length - 1)
+                    return;
+
+                this.daily_plan[day_index].plans.splice(plan_index + 1, 0, this.daily_plan[day_index].plans.splice(plan_index, 1)[0]);
+            },
+
             moveToPreviousDay(day_index, plan_index) {
                 if(day_index - 1 == -1) {
                     do {
