@@ -22,12 +22,6 @@
             display:none;
        }
     }
-
-    .avoid-break-inside {
-        -webkit-column-break-inside: avoid;
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
     </style>
 </head>
 <body>
