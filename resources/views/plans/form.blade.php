@@ -36,7 +36,7 @@
         <div class="field">
             <label class="label">To</label>
             <p class="control">
-                <input type="date" name="date_to" class="input" v-model="date_to" required>
+                <input type="date" name="date_to" class="input" v-model="date_to" required readonly>
                 <p class="help is-danger" v-if="hasError('date_to')" v-text="getError('date_to')"></p>
             </p>
         </div>
@@ -126,7 +126,7 @@
 <hr>
 <h1 class="title is-6" v-if="daily_plan.length == 0">- Set the dates above -</h1>
 <div v-for="(day, day_index) in daily_plan">
-    <h1 class="title is-5">@{{ day.date }}</h1>
+    <h1 class="title is-5">@{{ day.date }} <a class="delete" @click.prevent="daily_plan.splice(day_index, 1)" v-if="day_index == daily_plan.length - 1"></a></h1>
     <table class="table">
         <thead>
             <tr>
@@ -146,7 +146,7 @@
                 </td>
                 <td>
                     <textarea class="textarea" v-model="day.plans[index].plan"></textarea>
-                    <a v-show="day.plans[index].plan != ''" @click="moveToPreviousDay(day_index, index)">Move to previous day</a>
+                    <a v-show="index > 0 && day.plans[index].plan != ''" @click="moveToPreviousDay(day_index, index)">Move to previous day</a>
                     <a class="is-pulled-right" v-show="day.plans[index].plan != ''" @click="moveToNextDay(day_index, index)">Move to next day</a>
                 </td>
                 <td class="has-text-centered">
@@ -164,6 +164,8 @@
     <button class="button is-small" @click.prevent="addPlan(day)">Add</button>
     <hr>
 </div>
+
+<button class="button is-small" @click.prevent="addDay">Add day</button>
 
 <h1 class="title is-5">Observations</h1>
 <div class="field">

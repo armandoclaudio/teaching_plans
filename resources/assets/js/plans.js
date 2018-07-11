@@ -7,7 +7,7 @@ window.onload = function() {
             title: '',
             grade: '',
             date_from: '',
-            date_to : '',
+            date_to: '',
             daily_plan: [],
             standards_filter: '',
             available_standards: [],
@@ -26,8 +26,6 @@ window.onload = function() {
 
         mounted() {
             this.getPlanId();
-
-            this.calculateDates();
 
             axios.get('/standards/all')
                 .then(response => {
@@ -51,11 +49,18 @@ window.onload = function() {
 
         watch: {
             date_from() {
-                this.calculateDates();
+                this.updateDates()
             },
 
-            date_to() {
-                this.calculateDates();
+            daily_plan: {
+                handler() {
+                    if (this.daily_plan.length == 0) {
+                        return this.date_to = ''
+                    }
+
+                    this.date_to = moment(this.daily_plan[this.daily_plan.length - 1].date, 'dddd MMMM D, YYYY').format('YYYY-MM-DD')
+                },
+                deep: true
             },
 
             is_standard_modal_open() {
@@ -96,26 +101,51 @@ window.onload = function() {
                     })
             },
 
-            calculateDates() {
-                if(this.date_from == '' || this.date_to == '')
-                    return [];
+            addDay() {
+                if (this.date_from == '') return
 
-                const range = moment().range(this.date_from, this.date_to);
-                let dates = [];
-                for (let day of range.by('day')) {
-                    let dayOfWeek = day.format('d');
-                    if(dayOfWeek == 0 || dayOfWeek == 6)
-                        continue;
+                let formatted_date = this.nextDate().format('dddd MMMM D, YYYY')
+                this.daily_plan.push({
+                    date: formatted_date,
+                    plans: this.getPlans(formatted_date)
+                })
+            },
 
-                    let formatted_date = day.format('dddd MMMM D, YYYY');
-
-                    dates.push({
-                        date: formatted_date,
-                        plans: this.getPlans(formatted_date)
-                    });
+            nextDate(lastDate = null) {
+                let date = null
+                if (this.daily_plan.length == 0) {
+                    date = moment(this.date_from)
+                }
+                else if (lastDate != null) {
+                    date = lastDate.add(1, 'days')
+                }
+                else {
+                    date = moment(this.daily_plan[this.daily_plan.length - 1].date, 'dddd MMMM D, YYYY').add(1, 'days')
                 }
 
-                this.daily_plan = dates;
+                if (this.isWeekend(date)) {
+                    return date.add((date.day() + 1) % 5, 'days')
+                }
+
+                return date
+            },
+
+            updateDates() {
+                if (this.date_from == '') return
+                if (this.daily_plan.length == 0) return
+
+                this.daily_plan.forEach((item, index) => {
+                    if (index == 0) {
+                        this.daily_plan[index].date = moment(this.date_from).format('dddd MMMM D, YYYY')
+                    }
+                    else {
+                        this.daily_plan[index].date = this.nextDate(moment(this.daily_plan[index - 1].date)).format('dddd MMMM D, YYYY')
+                    }
+                })
+            },
+
+            isWeekend(date) {
+                return date.day() == 6 || date.day() == 0
             },
 
             getPlans(date) {
@@ -189,8 +219,6 @@ window.onload = function() {
                         this.date_from = moment(this.date_from).add(-1, 'days').format('YYYY-MM-DD');
                     }
                     while(moment(this.date_from).format('d') == 0 || moment(this.date_from).format('d') == 6);
-
-                    this.calculateDates();
                 }
 
                 let previous_day_index = day_index - 1;
@@ -215,11 +243,9 @@ window.onload = function() {
             moveToNextDay(day_index, plan_index) {
                 if(day_index + 1 == this.daily_plan.length) {
                     do {
-                        this.date_to = moment(this.date_to).add(1, 'days').format('YYYY-MM-DD');
+                        this.addDay()
                     }
                     while(moment(this.date_to).format('d') == 0 || moment(this.date_to).format('d') == 6);
-
-                    this.calculateDates();
                 }
 
                 this.daily_plan[day_index + 1].plans.unshift(this.daily_plan[day_index].plans[plan_index]);
