@@ -16,7 +16,7 @@ class StandardTest extends TestCase
     {
         $this->disableExceptionHandling();
 
-        $response = $this->post(route('standards.store'), [
+        $response = $this->actingAs(factory('App\User')->create())->post(route('standards.store'), [
             'description' => 'Standard 1',
             'expectations' => [
                 'Expectation 1',
@@ -39,7 +39,7 @@ class StandardTest extends TestCase
             'description' => 'Expectation 1'
         ]);
 
-        $response = $this->post(route('standards.update', $standard->id), [
+        $response = $this->actingAs(factory('App\User')->create())->post(route('standards.update', $standard->id), [
             'description' => 'Standard 2',
             'expectations' => [
                 'Expectation 2'
